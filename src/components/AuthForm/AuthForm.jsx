@@ -9,25 +9,63 @@ import {
 } from '@chakra-ui/react';
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
+  const [inputs, setInputs] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const handleAuth = () => {
+    if (!inputs.email || !inputs.password) {
+      alert('Please fill all the feilds');
+      return;
+    }
+    navigate('/');
+  };
+
   return (
     <>
       <Box border={'1px solid gray'} borderRadius={4} padding={5}>
         <VStack spacing={4}>
           <Image src='public/logo.png' />
-          <Input placeholder='Email' fontSize={15} type='email' />
-          <Input placeholder='Password' fontSize={15} type='password' />
+          <Input
+            placeholder='Email'
+            fontSize={15}
+            type='email'
+            value={inputs.email}
+            onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
+          />
+          <Input
+            placeholder='Password'
+            fontSize={15}
+            type='password'
+            value={inputs.password}
+            onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
+          />
 
           {!isLogin ? (
             <Input
               placeholder='Confirm Password'
               fontSize={15}
               type='password'
+              value={inputs.confirmPassword}
+              onChange={(e) =>
+                setInputs({ ...inputs, confirmPassword: e.target.value })
+              }
             />
           ) : null}
 
-          <Button width={'full'} colorScheme='blue' size={'sm'} fontSize={15}>
+          <Button
+            width={'full'}
+            colorScheme='blue'
+            size={'sm'}
+            fontSize={15}
+            onClick={handleAuth}>
             {isLogin == true ? 'Login' : 'Sign-Up'}
           </Button>
 
@@ -56,7 +94,7 @@ const AuthForm = () => {
           </Flex>
         </VStack>
       </Box>
-      
+
       <Box border={'1px solid gray'} borderRadius={4} padding={5}>
         <Flex alignItems={'center'} justifyContent={'center'}>
           <Box mx={2} fontSize={15}>
