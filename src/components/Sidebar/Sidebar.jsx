@@ -32,6 +32,7 @@ const Sidebar = () => {
     {
       icon: <Avatar size={'sm'} name='Tushar Gupta' src='#' />,
       text: 'Profile',
+      link: '/:username',
     },
   ];
 
@@ -116,9 +117,8 @@ const Sidebar = () => {
             alignContent={'center'}
             _hover={{ bg: 'whiteAlpha.400' }}
             justifyContent={{ base: 'center', md: 'flex-start' }}
-            mt={"auto"}
-            >
-            <BiLogOut size={25}/>
+            mt={'auto'}>
+            <BiLogOut size={25} />
             <Box display={{ base: 'none', md: 'block' }}>Log-Out</Box>
           </Link>
         </Tooltip>
