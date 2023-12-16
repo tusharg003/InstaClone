@@ -1,6 +1,16 @@
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Button,
+  Input,
+  InputGroup,
+  InputRightElement,
+} from '@chakra-ui/react';
 import { useState } from 'react';
+import useSignUpWithEmailAndPassword from '../../hooks/useSignUpWithEmailAndPassword';
 
 const Signup = () => {
   const [inputs, setInputs] = useState({
@@ -10,6 +20,7 @@ const Signup = () => {
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
+  const { loading, error, signup } = useSignUpWithEmailAndPassword();
   return (
     <>
       <Input
@@ -55,8 +66,24 @@ const Signup = () => {
           </Button>
         </InputRightElement>
       </InputGroup>
+
+      {error && (
+        <Alert status='error'>
+          <AlertIcon />
+          <AlertTitle>Your browser is outdated!</AlertTitle>
+          <AlertDescription>
+            Your Chakra experience may be degraded.
+          </AlertDescription>
+        </Alert>
+      )}
       
-      <Button width={'full'} colorScheme='blue' size={'sm'} fontSize={15}>
+      <Button
+        width={'full'}
+        colorScheme='blue'
+        size={'sm'}
+        fontSize={15}
+        isLoading={loading}
+        onClick={() => signup(inputs)}>
         Sign Up
       </Button>
     </>

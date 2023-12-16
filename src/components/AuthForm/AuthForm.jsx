@@ -22,6 +22,7 @@ const AuthForm = () => {
           {isLogin ? <Login /> : <Signup />}
 
           {/* --------------OR---------------- */}
+          
           <Flex
             alignItems={'center'}
             justifyContent={'center'}
@@ -36,6 +37,7 @@ const AuthForm = () => {
           </Flex>
 
           <GoogleAuth />
+
         </VStack>
       </Box>
 
