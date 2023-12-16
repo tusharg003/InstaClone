@@ -1,9 +1,7 @@
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
   Alert,
-  AlertDescription,
   AlertIcon,
-  AlertTitle,
   Button,
   Input,
   InputGroup,
@@ -68,15 +66,12 @@ const Signup = () => {
       </InputGroup>
 
       {error && (
-        <Alert status='error'>
-          <AlertIcon />
-          <AlertTitle>Your browser is outdated!</AlertTitle>
-          <AlertDescription>
-            Your Chakra experience may be degraded.
-          </AlertDescription>
+        <Alert status='error' fontSize={13} p={2} borderRadius={4}>
+          <AlertIcon fontSize={12} />
+          {error.message}
         </Alert>
       )}
-      
+
       <Button
         width={'full'}
         colorScheme='blue'
