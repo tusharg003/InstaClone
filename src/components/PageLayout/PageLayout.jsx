@@ -1,17 +1,22 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
 import Sidebar from '../Sidebar/Sidebar';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../firebase/firebase';
 
-// instead of adding sidebar component to every page we just it once in the pageLayout componet and wrap the children with it, This 
+// instead of adding sidebar component to every page we just it once in the pageLayout componet and wrap the children with it, This
 // way we can have sidebar in every page expect for the auth page
- 
+
 const PageLayout = ({ children }) => {
-  const location = useLocation();
-//   console.log(location);
+  const { pathname } = useLocation();
+  const [user, loading, error] = useAuthState(auth);
+  const canRenderSidebar = pathname !== '/auth' && user;
+  
+  //   console.log(location);
   return (
     <Flex>
       {/* Side bar on the left */}
-      {location.pathname !== '/auth' ? (
+      {canRenderSidebar ? (
         <Box w={{ base: '70px', md: '240px' }}>
           <Sidebar />
         </Box>
