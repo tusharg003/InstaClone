@@ -8,7 +8,6 @@ import { auth } from './components/firebase/firebase';
 
 function App() {
   const [authUser] = useAuthState(auth);
-  
   return (
     <PageLayout>
       <Routes>
