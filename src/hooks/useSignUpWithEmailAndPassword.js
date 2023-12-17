@@ -4,11 +4,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import useShowToast from './useShowToast';
 
 const useSignUpWithEmailAndPassword = () => {
-    const [
-        createUserWithEmailAndPassword,
-        loading,
-        error,
-    ] = useCreateUserWithEmailAndPassword(auth);
+    const [createUserWithEmailAndPassword, , loading, error] = useCreateUserWithEmailAndPassword(auth);
     const showToast = useShowToast();
     const signup = async (inputs) => {
         if (!inputs.email || !inputs.password || !inputs.username || !inputs.fullName) {
@@ -37,7 +33,7 @@ const useSignUpWithEmailAndPassword = () => {
                 }
                 await setDoc(doc(firestore, "users", newUser.user.uid), userDoc);
                 localStorage.setItem('user-info', JSON.stringify(userDoc));
-                // showToast("error", "done bhai done", "error")
+                showToast("Success", "Account created", "success")
             }
 
         } catch (error) {
