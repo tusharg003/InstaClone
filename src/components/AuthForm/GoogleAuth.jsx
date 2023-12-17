@@ -2,7 +2,7 @@ import { Flex, Image, Text } from '@chakra-ui/react';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { auth, firestore } from '../firebase/firebase';
 import useShowToast from '../../hooks/useShowToast';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import useAuthStore from '../../store/AuthStore';
 
 const GoogleAuth = ({ prefix }) => {
@@ -17,9 +17,18 @@ const GoogleAuth = ({ prefix }) => {
         showToast('Error', error.message, 'error');
         return;
       }
-      if (newUser) {
-        console.log(newUser);
-        console.log(newUser.user);
+
+      const userRef = doc(firestore, 'users', newUser.user.uid);
+      const userSnap = await getDoc(userRef);
+      console.log(userSnap);
+      if (userSnap.exists()) {
+        //login
+        const userDoc = userSnap.data();
+        localStorage.setItem('user-info', JSON.stringify(userDoc));
+        loginUser(userDoc);
+        console.log(userSnap.data);
+      } else {
+        //signin
         const userDoc = {
           uid: newUser.user.uid,
           email: newUser.user.email,
