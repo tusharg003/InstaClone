@@ -6,7 +6,7 @@ import { doc, getDoc } from 'firebase/firestore';
 
 const useLogin = () => {
   const showToast = useShowToast();
-  const [signInWithEmailAndPassword, , loading, error] =useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, , loading, error] = useSignInWithEmailAndPassword(auth);
   const loginUser = useAuthStore((state) => state.login);
 
   const login = async (inputs) => {
@@ -14,7 +14,7 @@ const useLogin = () => {
       return showToast('Error', 'Please fill all the feilds', 'error');
 
     try {
-      const userCred = await signInWithEmailAndPassword(inputs.email,inputs.password);
+      const userCred = await signInWithEmailAndPassword(inputs.email, inputs.password);
       console.log(userCred);
       if (userCred) {
         const docRef = doc(firestore, 'users', userCred.user.uid);
