@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import useAuthStore from "../store/authStore";
 import useUserProfileStore from "../store/userProfileStore";
 import useShowToast from "./useShowToast";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { firestore } from "../components/firebase/firebase";
+import useAuthStore from "../store/AuthStore";
 
 const useFollowUser = (userId) => {
 
@@ -36,7 +36,7 @@ const useFollowUser = (userId) => {
                     ...authUser,
                     following: authUser.following.filter(uid => uid !== userId)// removes userId user from the following list of authUser
                 })
-                if (userProfile)
+                if (userProfile)// if we are mot visiting any user profile ie seraching from homepage then its giving error
                     setUserProfile({
                         ...userProfile,
                         followers: userProfile.followers.filter((uid) => uid !== authUser.uid),
