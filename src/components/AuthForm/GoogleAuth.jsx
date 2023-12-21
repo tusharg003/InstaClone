@@ -3,7 +3,7 @@ import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { auth, firestore } from '../firebase/firebase';
 import useShowToast from '../../hooks/useShowToast';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import useAuthStore from '../../store/AuthStore';
+import useAuthStore from '../../store/authStore';
 
 const GoogleAuth = ({ prefix }) => {
   const [signInWithGoogle, , , error] = useSignInWithGoogle(auth);

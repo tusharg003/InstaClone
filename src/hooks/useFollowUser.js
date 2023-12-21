@@ -3,7 +3,7 @@ import useUserProfileStore from "../store/userProfileStore";
 import useShowToast from "./useShowToast";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { firestore } from "../components/firebase/firebase";
-import useAuthStore from "../store/AuthStore";
+import useAuthStore from "../store/authStore";
 
 const useFollowUser = (userId) => {
 

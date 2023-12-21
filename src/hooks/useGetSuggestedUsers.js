@@ -9,7 +9,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { firestore } from '../components/firebase/firebase';
-import useAuthStore from '../store/AuthStore';
+import useAuthStore from '../store/authStore';
 
 const useGetSuggestedUsers = () => {
   const [isLoading, setIsLoading] = useState(true); //initially loading
@@ -31,7 +31,7 @@ const useGetSuggestedUsers = () => {
 
         const querySnapshot = await getDocs(q);
         const users = [];
-        
+
         querySnapshot.forEach((doc) => {
           users.push({ ...doc.data(), id: doc.id }); //creating an obj by spreading the doc.data and adding in it an id as doc.id for rendering unqiue componets in react
         });

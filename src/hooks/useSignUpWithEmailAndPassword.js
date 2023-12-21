@@ -2,7 +2,7 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth, firestore } from '../components/firebase/firebase';
 import { collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
 import useShowToast from './useShowToast';
-import useAuthStore from '../store/AuthStore';
+import useAuthStore from '../store/authStore';
 
 const useSignUpWithEmailAndPassword = () => {
     const [createUserWithEmailAndPassword, , loading, error] = useCreateUserWithEmailAndPassword(auth);
@@ -24,7 +24,7 @@ const useSignUpWithEmailAndPassword = () => {
             showToast("Error", "Username already exists", "error");
             return
         }
-        
+
         try {
             const newUser = await createUserWithEmailAndPassword(inputs.email, inputs.password);
             if (!newUser && error) {
