@@ -22,12 +22,12 @@ import PostFooter from '../FeedPosts/PostFooter';
 import useUserProfileStore from '../../store/userProfileStore';
 import useAuthStore from '../../store/authStore';
 import useShowToast from '../../hooks/useShowToast';
-import { useState } from 'react';
 import { firestore, storage } from '../firebase/firebase';
 import { deleteObject, ref } from 'firebase/storage';
 import { arrayRemove, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import usePostStore from '../../store/postStore';
 import Caption from '../Comment/Caption';
+import { useState } from 'react';
 
 const ProfilePost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -37,6 +37,7 @@ const ProfilePost = ({ post }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const deletePost = usePostStore((state) => state.deletePost);
   const decrementPostsCount = useUserProfileStore((state) => state.deletePost);
+
   const handleDeletePost = async () => {
     if (!window.confirm('Are you sure you want to delete this post?')) return;
     setIsDeleting(true);
@@ -59,7 +60,6 @@ const ProfilePost = ({ post }) => {
       setIsDeleting(false);
     }
   };
-  // console.log(post.comments);
 
   return (
     <>
