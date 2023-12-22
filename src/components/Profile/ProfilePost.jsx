@@ -9,7 +9,6 @@ import {
   ModalContent,
   ModalCloseButton,
   ModalBody,
-  Box,
   Avatar,
   Divider,
   VStack,
@@ -22,11 +21,44 @@ import Comment from '../Comment/Comment';
 import PostFooter from '../FeedPosts/PostFooter';
 import useUserProfileStore from '../../store/userProfileStore';
 import useAuthStore from '../../store/authStore';
+import useShowToast from '../../hooks/useShowToast';
+import { useState } from 'react';
+import { firestore, storage } from '../firebase/firebase';
+import { deleteObject, ref } from 'firebase/storage';
+import { arrayRemove, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import usePostStore from '../../store/postStore';
 
 const ProfilePost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const userProfile = useUserProfileStore((state) => state.userProfile);
   const authUser = useAuthStore((state) => state.user);
+  const showToast = useShowToast();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const deletePost = usePostStore((state) => state.deletePost);
+  const decrementPostsCount = useUserProfileStore((state) => state.deletePost);
+  const handleDeletePost = async () => {
+    if (!window.confirm('Are you sure you want to delete this post?')) return;
+    setIsDeleting(true);
+    if (isDeleting) return;
+    try {
+      const imageRef = ref(storage, `posts/${post.id}`);
+      await deleteObject(imageRef);
+      const userRef = doc(firestore, 'users', authUser.uid);
+      await deleteDoc(doc(firestore, 'posts', post.id));
+      await updateDoc(userRef, {
+        posts: arrayRemove(post.id),
+      });
+
+      deletePost(post.id);
+      decrementPostsCount(post.id);
+      showToast('Success', 'Post deleted successfully', 'success');
+    } catch (error) {
+      showToast('Error', error.message, 'error');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <>
       <GridItem
@@ -112,17 +144,20 @@ const ProfilePost = ({ post }) => {
                       {userProfile.username}
                     </Text>
                   </Flex>
-
-                  {authUser && authUser.uid === userProfile.uid && (// authUser?.uid is chained version of same code
-                    <Button
-                      size={'sm'}
-                      bg={'transparent'}
-                      _hover={{ bg: 'whiteAlpha.300', color: 'red.600' }}
-                      borderRadius={4}
-                      p={1}>
-                      <MdDelete size={20} cursor={'pointer'} />
-                    </Button>
-                  )}
+                  {/*conditonal rendering of the delete post btn */}
+                  {authUser &&
+                    authUser.uid === userProfile.uid && ( // authUser?.uid is chained version of same code
+                      <Button
+                        size={'sm'}
+                        bg={'transparent'}
+                        _hover={{ bg: 'whiteAlpha.300', color: 'red.600' }}
+                        borderRadius={4}
+                        p={1}
+                        isLoading={isDeleting}
+                        onClick={handleDeletePost}>
+                        <MdDelete size={20} cursor={'pointer'} />
+                      </Button>
+                    )}
                 </Flex>
                 <Divider my={4} bg={'gray.500'} />
 

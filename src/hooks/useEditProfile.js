@@ -31,10 +31,12 @@ const useEditProfile = () => {
             const updatedUser = {
                 ...authUser,
                 fullName: inputs.fullName || authUser.fullName,
-                username: inputs.username || authUser.username,
+                username: inputs.username ,
                 bio: inputs.bio || authUser.bio,
                 profilePicURL: URL || authUser.profilePicURL,
             }// just change the name,username,bio adn image other data of authUSer should remain the same
+
+            
 
             await updateDoc(userDocRef, updatedUser)// updating the profile of the current logged in user in the database
             localStorage.setItem('user-info', JSON.stringify(updatedUser))// updating the LS with updated profile of user
