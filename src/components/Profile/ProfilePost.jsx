@@ -27,6 +27,7 @@ import { firestore, storage } from '../firebase/firebase';
 import { deleteObject, ref } from 'firebase/storage';
 import { arrayRemove, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import usePostStore from '../../store/postStore';
+import Caption from '../Comment/Caption';
 
 const ProfilePost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -58,6 +59,7 @@ const ProfilePost = ({ post }) => {
       setIsDeleting(false);
     }
   };
+  // console.log(post.comments);
 
   return (
     <>
@@ -166,16 +168,16 @@ const ProfilePost = ({ post }) => {
                   alignItems={'start'}
                   maxH={'350px'}
                   overflowY={'auto'}>
-                  <Comment
-                    createdAt='1d ago'
-                    username='_iamsrk'
-                    profliePic='/profilepic.png'
-                    text='dummy pic from upslacsh'
-                  />
+                  {/* captions */}
+                  {post.caption && <Caption post={post} />}
+                  {/* comments */}
+                  {post.comments.map((comment) => (
+                    <Comment key={comment.id} comment={comment} />
+                  ))}
                 </VStack>
                 <Divider my={4} bg={'gray.800'} />
 
-                <PostFooter isProfilePage={true} />
+                <PostFooter isProfilePage={true} post={post} />
               </Flex>
             </Flex>
           </ModalBody>
