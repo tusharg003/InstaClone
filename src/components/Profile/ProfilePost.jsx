@@ -19,7 +19,8 @@ import { MdDelete } from 'react-icons/md';
 import { FaComment } from 'react-icons/fa';
 import Comment from '../Comment/Comment';
 import PostFooter from '../FeedPosts/PostFooter';
-const ProfilePost = ({ img }) => {
+
+const ProfilePost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -57,7 +58,7 @@ const ProfilePost = ({ img }) => {
         </Flex>
 
         <Image
-          src={img}
+          src={post.imageURL}
           alt='profile-pic'
           w={'100%'}
           h={'100%'}
@@ -84,7 +85,7 @@ const ProfilePost = ({ img }) => {
                 border={'1px solid'}
                 borderColor={'whiteAlpha.300'}
                 flex={1.5}>
-                <Image src={img} alt='profile post' />
+                <Image src={post.imageURL} alt='profile post' />
               </Box>
               <Flex
                 flex={1}
