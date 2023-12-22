@@ -13,15 +13,20 @@ import {
   Avatar,
   Divider,
   VStack,
+  Button,
 } from '@chakra-ui/react';
 import { AiFillHeart } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 import { FaComment } from 'react-icons/fa';
 import Comment from '../Comment/Comment';
 import PostFooter from '../FeedPosts/PostFooter';
+import useUserProfileStore from '../../store/userProfileStore';
+import useAuthStore from '../../store/authStore';
 
 const ProfilePost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const userProfile = useUserProfileStore((state) => state.userProfile);
+  const authUser = useAuthStore((state) => state.user);
   return (
     <>
       <GridItem
@@ -45,14 +50,14 @@ const ProfilePost = ({ post }) => {
           transition={'all 0.3s ease'}
           zIndex={1}
           justifyContent={'center'}>
-          <Flex alignItems={'center'} justifyContent={'center'} gap={50}>
-            <Flex>
+          <Flex alignItems={'center'} justifyContent={'center'} gap={10}>
+            <Flex gap={1}>
               <AiFillHeart size={25} />
-              <Text fontWeight={'bold'}> 7</Text>
+              <Text fontWeight={'bold'}> {post.likes.length}</Text>
             </Flex>
-            <Flex>
+            <Flex gap={1}>
               <FaComment size={25} />
-              <Text fontWeight={'bold'}> 7</Text>
+              <Text fontWeight={'bold'}> {post.comments.length}</Text>
             </Flex>
           </Flex>
         </Flex>
@@ -78,15 +83,19 @@ const ProfilePost = ({ post }) => {
             <Flex
               gap={'4'}
               w={{ base: '90%', small: '70%', md: 'full' }}
-              mx={'auto'}>
-              <Box
+              mx={'auto'}
+              maxH={'90vh'}
+              minH={'50vh'}>
+              <Flex
                 borderRadius={4}
                 overflow={'hidden'}
                 border={'1px solid'}
                 borderColor={'whiteAlpha.300'}
-                flex={1.5}>
+                flex={1.5}
+                justifyContent={'center'}
+                alignItems={'center'}>
                 <Image src={post.imageURL} alt='profile post' />
-              </Box>
+              </Flex>
               <Flex
                 flex={1}
                 flexDir={'column'}
@@ -95,21 +104,25 @@ const ProfilePost = ({ post }) => {
                 <Flex alignItems={'center'} justifyContent={'space-between'}>
                   <Flex alignItems={'center'} gap={4}>
                     <Avatar
-                      src='/profilepic.png'
+                      src={userProfile.profilePicURL}
                       size={'sm'}
                       name='name of pic'
                     />
                     <Text fontWeight={'bold'} fontSize={12}>
-                      username1234
+                      {userProfile.username}
                     </Text>
                   </Flex>
 
-                  <Box
-                    _hover={{ bg: 'whiteAlpha.300', color: 'red.600' }}
-                    borderRadius={4}
-                    p={1}>
-                    <MdDelete size={20} cursor={'pointer'} />
-                  </Box>
+                  {authUser && authUser.uid === userProfile.uid && (// authUser?.uid is chained version of same code
+                    <Button
+                      size={'sm'}
+                      bg={'transparent'}
+                      _hover={{ bg: 'whiteAlpha.300', color: 'red.600' }}
+                      borderRadius={4}
+                      p={1}>
+                      <MdDelete size={20} cursor={'pointer'} />
+                    </Button>
+                  )}
                 </Flex>
                 <Divider my={4} bg={'gray.500'} />
 

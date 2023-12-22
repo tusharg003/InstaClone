@@ -42,7 +42,7 @@ const Sidebar = () => {
           <InstagramMobileLogo />
         </Link>
 
-        <Flex direction={'column'} gap={3} cursor={'pointer'}>
+        <Flex direction={'column'} gap={3} cursor={'pointer'} alignContent={'center'}>
           <SidebarItems />
         </Flex>
 

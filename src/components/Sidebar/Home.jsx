@@ -15,7 +15,7 @@ const Home = () => {
         to={'/'}
         as={RouterLink}
         gap={4}
-        p={3}
+        p={2}
         w={{ md: 'full' }}
         borderRadius={6}
         alignContent={'center'}

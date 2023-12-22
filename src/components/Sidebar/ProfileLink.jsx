@@ -14,9 +14,9 @@ const ProfileLink = () => {
       openDelay={500}
       display={{ base: 'block', md: 'none' }}>
       <Link
-        display={'flex'}
         to={`/${authUser?.username}`}
         as={RouterLink}
+        display={'flex'}
         alignItems={'center'}
         gap={4}
         _hover={{ bg: 'whiteAlpha.400' }}
