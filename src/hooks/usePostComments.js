@@ -15,6 +15,13 @@ const usePostComments = () => {
 
         if (isCommenting) return
         if (!authUser) return showToast('Error', 'You must be logged in to comment', 'error')
+
+        // Check if the comment is empty or contains only whitespace
+        if (!comment || !comment.trim()) {
+            showToast('Error', 'Comment cannot be empty', 'error');
+            return;
+        }
+        
         setIsCommenting(true);
         const newComment = {
             comment,// if the lhs and rhs are same we can just assing like this

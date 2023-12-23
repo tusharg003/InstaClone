@@ -18,7 +18,7 @@ function App() {
           path='/auth'
           element={!authUser ? <AuthPage /> : <Navigate to={'/'} />}></Route>
         <Route path='/:username' element={<ProfilePage />}></Route>
-      </Routes>
+      </Routes>``
     </PageLayout>
   );
 }
