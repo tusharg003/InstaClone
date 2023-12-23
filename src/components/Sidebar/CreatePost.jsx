@@ -153,6 +153,7 @@ function useCreatePost() {
   const authUser = useAuthStore((state) => state.user); // Hook for accessing authenticated user info
   const createPost = usePostStore((state) => state.createPost); // Custom store hook for creating a post
   const addPost = useUserProfileStore((state) => state.addPost); // Custom store hook for adding a post to user profile
+  const userProfile = useUserProfileStore((state) => state.userProfile);
   const pathName = useLocation(); // React Router hook to access current location
 
   // Function to handle creating a new post
@@ -186,16 +187,17 @@ function useCreatePost() {
 
       // Uploading the selected image to Firebase Storage int the imageRef location
       await uploadString(imageRef, selectedFile, 'data_url');
-      const downloadURL = await getDownloadURL(imageRef);// retrives that url
-      
+      const downloadURL = await getDownloadURL(imageRef); // retrives that url
 
       // Updating the post in Firestore with the image URL
-      await updateDoc(postDocRef, { imageURL: downloadURL });// updating the post doc with that url
-      
+      await updateDoc(postDocRef, { imageURL: downloadURL }); // updating the post doc with that url
+
       // Updating the local state in the custom store hooks
       newPost.imageURL = downloadURL;
-      createPost({ ...newPost, id: postDocRef.id });
-      addPost({ ...newPost, id: postDocRef.id });
+      if (userProfile.uid === authUser.uid)
+        createPost({ ...newPost, id: postDocRef.id });
+      if (pathName !== '/' && userProfile.uid === authUser.uid)
+        addPost({ ...newPost, id: postDocRef.id });
 
       showToast('Success', 'Post created successfully', 'success'); // Displaying a success toast message
     } catch (error) {
