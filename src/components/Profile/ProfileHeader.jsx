@@ -8,13 +8,11 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import useUserProfileStore from '../../store/userProfileStore';
-import useAuthStore from '../../store/authStore';
+import useAuthStore from 'c:/Users/Tushar Gupta/Desktop/Insta Clone/src/store/authStore';
 import EditProfile from './EditProfile';
 import useFollowUser from '../../hooks/useFollowUser';
 
-
 const ProfileHeader = () => {
-
   const { userProfile } = useUserProfileStore();
   const authUser = useAuthStore((state) => state.user);
   const { isOpen, onOpen, onClose } = useDisclosure();
