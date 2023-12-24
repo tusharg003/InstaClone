@@ -31,7 +31,7 @@ const useEditProfile = () => {
             const updatedUser = {
                 ...authUser,
                 fullName: inputs.fullName || authUser.fullName,
-                username: inputs.username ,
+                // username: inputs.username ,
                 bio: inputs.bio || authUser.bio,
                 profilePicURL: URL || authUser.profilePicURL,
             }// just change the name,username,bio adn image other data of authUSer should remain the same

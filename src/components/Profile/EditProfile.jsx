@@ -24,7 +24,7 @@ import useShowToast from '../../hooks/useShowToast';
 const EditProfile = ({ isOpen, onClose }) => {
   const [inputs, setInputs] = useState({
     fullName: '',
-    username: '',
+    // username: '',`
     bio: '',
   });
 
@@ -107,7 +107,7 @@ const EditProfile = ({ isOpen, onClose }) => {
                     }
                   />
                 </FormControl>
-
+{/* 
                 <FormControl>
                   <FormLabel fontSize={'sm'}>Username</FormLabel>
                   <Input
@@ -119,7 +119,7 @@ const EditProfile = ({ isOpen, onClose }) => {
                       setInputs({ ...inputs, username: e.target.value })
                     }
                   />
-                </FormControl>
+                </FormControl> */}
 
                 <FormControl>
                   <FormLabel fontSize={'sm'}>Bio</FormLabel>
