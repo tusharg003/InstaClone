@@ -1,10 +1,12 @@
 import { Box, VStack, Image, Flex, Text } from '@chakra-ui/react';
+import instaLogo from '../../../public/logo.png';
 
 import { useState } from 'react';
 import Login from './Login';
 import Signup from './Signup';
 import GoogleAuth from './GoogleAuth';
-import instaLogo from '../../../public/logo.png'
+
+
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
 

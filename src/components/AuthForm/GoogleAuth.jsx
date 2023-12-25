@@ -4,7 +4,7 @@ import { auth, firestore } from '../firebase/firebase';
 import useShowToast from '../../hooks/useShowToast';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import useAuthStore from '../../store/authStore';
-
+import googleLogo from '../../../public/google.png';
 const GoogleAuth = ({ prefix }) => {
   const [signInWithGoogle, , , error] = useSignInWithGoogle(auth);
   const showToast = useShowToast();
@@ -56,7 +56,7 @@ const GoogleAuth = ({ prefix }) => {
       justifyContent={'center'}
       cursor={'pointer'}
       onClick={handleGoogleAuth}>
-      <Image src='../../../public/google.png' w={'6'} alt='google logo' />
+      <Image src={googleLogo} w={'6'} alt='google logo' />
       <Text mx={'2'} color={'blue.500'}>
         {prefix} with Google
       </Text>

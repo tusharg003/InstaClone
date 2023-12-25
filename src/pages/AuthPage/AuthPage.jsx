@@ -1,5 +1,6 @@
 import { Flex, Container, Box, Image, VStack } from '@chakra-ui/react';
 import AuthForm from '../../components/AuthForm/AuthForm';
+import authPNG from '../../../public/auth.png';
 
 const AuthPage = () => {
   return (
@@ -10,7 +11,7 @@ const AuthPage = () => {
           {/* left hand side */}
           <Box display={{ base: 'none', md: 'block' }}>
             {/* base none means that in small devices the pic display will be none else block*/}
-            <Image src='../../../public/auth.png' h={650} alt='Phone img' />
+            <Image src={authPNG} h={650} alt='Phone img' />
           </Box>
 
           {/* Righthand side */}
