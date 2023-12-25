@@ -56,7 +56,7 @@ const GoogleAuth = ({ prefix }) => {
       justifyContent={'center'}
       cursor={'pointer'}
       onClick={handleGoogleAuth}>
-      <Image src='public/google.png' w={'6'} alt='google logo' />
+      <Image src='../../../public/google.png' w={'6'} alt='google logo' />
       <Text mx={'2'} color={'blue.500'}>
         {prefix} with Google
       </Text>

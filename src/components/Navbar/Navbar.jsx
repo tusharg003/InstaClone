@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <Container maxW={'container.lg'} my={1} >
+    <Container maxW={'container.lg'} my={1}>
       <Flex
         w={'full'}
         justifyContent={{ base: 'center', sm: 'space-between' }}
         alignItems={'center'}>
         <Image
-          src='/logo.png'
+          src='../../../logo.png'
           h={16}
           display={{ base: 'none', sm: 'block' }}
           cursor={'pointer'}
