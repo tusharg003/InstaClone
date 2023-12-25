@@ -8,7 +8,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import useUserProfileStore from '../../store/userProfileStore';
-import useAuthStore from '../../store/authStore';
+import useAuthStore from '../../store/authStore'
 import EditProfile from './EditProfile';
 import useFollowUser from '../../hooks/useFollowUser';
 
